@@ -1,7 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Alice&display=swap");
+
+:root {
+  font-family: "Alice", sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.wrapper {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 2fr 20fr 1fr;
+}
+.header {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  gap: 10px;
+}
+
+.header p {
+  font-size: 1.5rem;
+}
+
+img {
+  height: 30px;
+}
+
+.content-wrapper {
+  border: 1px solid red;
+  height: 100%;
+  background-color: rgb(244, 241, 241);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 250px);
 }
 
 .modal {
@@ -13,7 +51,7 @@
   border: 1px solid black;
   border-radius: 10px;
 
-  z-index: 10;
+  z-index: 20;
 
   background-color: lightblue;
   width: min(300px, 50%);
@@ -62,4 +100,17 @@ form {
 #overlay.active {
   opacity: 1;
   pointer-events: all;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid blue;
+  height: 200px;
+}
+
+.footer {
+  height: 100%;
+  border: 1px solid green;
+  background-color: lightskyblue;
 }

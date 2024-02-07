@@ -4,6 +4,7 @@ const openModalBtn = document.querySelector(".add");
 const closeModalBtn = document.querySelector(".close");
 const overlay = document.getElementById("overlay");
 const submitBtn = document.querySelector(".submit");
+const content = document.querySelector(".content");
 
 const title = document.querySelector(".title");
 const author = document.querySelector(".author");
@@ -11,6 +12,9 @@ const pages = document.querySelector(".pages");
 const read = document.querySelector(".read");
 
 const myLibrary = [];
+
+addBookToLibrary("The Power of One More", "Ed Mylett", "1000", false);
+addBookToLibrary("Coders", "Clive Thompson", "2000", true);
 
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -21,6 +25,9 @@ submitBtn.addEventListener("click", (e) => {
     pages.value.trim(),
     read.checked
   );
+
+  const modal = document.querySelector(".modal.active");
+  closeModal(modal);
 });
 
 openModalBtn.addEventListener("click", () => {
@@ -29,11 +36,13 @@ openModalBtn.addEventListener("click", () => {
 
 closeModalBtn.addEventListener("click", () => {
   const modal = document.querySelector(".modal.active");
+
   closeModal(modal);
 });
 
 overlay.addEventListener("click", () => {
   const modal = document.querySelector(".modal.active");
+
   closeModal(modal);
 });
 
@@ -59,6 +68,29 @@ function Book(title, author, pages, read) {
 function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
+  updateLibrary(myLibrary[myLibrary.length - 1], myLibrary.length - 1);
 }
 
+function updateLibrary(newBook, index) {
+  const newCard = document.createElement("div");
+  newCard.classList.add("card");
+  newCard.classList.add("bookCard");
+
+  const currentBookNumber = document.createElement("p");
+  const currentBookTitle = document.createElement("p");
+  const currentBookAuthor = document.createElement("p");
+  const currentBookPages = document.createElement("p");
+
+  currentBookNumber.textContent = `Book #: ${index + 1}`;
+  currentBookTitle.textContent = `Title: ${newBook.title}`;
+  currentBookAuthor.textContent = `Author: ${newBook.author}`;
+  currentBookPages.textContent = `Pages: ${newBook.pages}`;
+
+  newCard.appendChild(currentBookNumber);
+  newCard.appendChild(currentBookTitle);
+  newCard.appendChild(currentBookAuthor);
+  newCard.appendChild(currentBookPages);
+
+  content.appendChild(newCard);
+}
 console.log(myLibrary);
