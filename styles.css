@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Alice&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap");
 
 :root {
-  font-family: "Alice", sans-serif;
+  font-family: "Kiwi Maru", serif;
 }
 
 * {
@@ -28,8 +28,8 @@
   font-size: 1.5rem;
 }
 
-img {
-  height: 30px;
+.header img {
+  height: 40px;
 }
 
 .content-wrapper {
@@ -115,11 +115,14 @@ input[type="text"] {
 }
 
 .card {
+  font-size: 0.8rem;
   background-color: white;
   border-radius: 5px;
-  border: 1px solid blue;
   height: 200px;
   padding: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 
   display: flex;
   flex-direction: column;
@@ -140,7 +143,14 @@ img[src*="plus"] {
 }
 
 .footer {
+  font-size: 0.7rem;
   height: 100%;
   border: 1px solid green;
-  background-color: lightskyblue;
+  background-color: white;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.footer a {
+  color: blue;
 }
