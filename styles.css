@@ -38,7 +38,7 @@ form {
   gap: 1rem;
 }
 
-.close-button {
+.close {
   cursor: pointer;
   border: none;
   background: none;

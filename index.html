@@ -10,20 +10,30 @@
   <body>
     <button class="add" data-modal-target="#modal">New Book</button>
     <div class="modal" id="modal">
-      <button class="close-button" data-close-button>&times</button>
+      <button class="close" data-close-button>&times</button>
       <div class="form-container">
         <div class="modal-header">New Book Entry</div>
-        <form action="#">
-          <input type="text" name="title" placeholder="Title" />
-          <input type="text" name="author" placeholder="Author" />
-          <input type="text" name="pages" placeholder="# of Pages" />
+        <form id="form" action="#">
+          <input type="text" class="title" name="title" placeholder="Title" />
+          <input
+            type="text"
+            class="author"
+            name="author"
+            placeholder="Author"
+          />
+          <input
+            type="text"
+            class="pages"
+            name="pages"
+            placeholder="# of Pages"
+          />
           <label for="read"
             >Have you read it?
-            <input type="checkbox" />
+            <input type="checkbox" class="read" />
           </label>
         </form>
       </div>
-      <button class="close" type="submit">Submit</button>
+      <button class="submit" type="submit">Submit</button>
     </div>
     <div id="overlay"></div>
   </body>

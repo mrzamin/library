@@ -1,23 +1,35 @@
 //Grab DOM elements.//
 
-const openModalBtn = document.querySelectorAll("[data-modal-target]");
-const closeModalBtn = document.querySelectorAll("[data-close-button]");
+const openModalBtn = document.querySelector(".add");
+const closeModalBtn = document.querySelector(".close");
 const overlay = document.getElementById("overlay");
+const submitBtn = document.querySelector(".submit");
+
+const title = document.querySelector(".title");
+const author = document.querySelector(".author");
+const pages = document.querySelector(".pages");
+const read = document.querySelector(".read");
 
 const myLibrary = [];
 
-openModalBtn.forEach((button) => {
-  button.addEventListener("click", () => {
-    const modal = document.querySelector(button.dataset.modalTarget);
-    openModal(modal);
-  });
+submitBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  addBookToLibrary(
+    title.value.trim(),
+    author.value.trim(),
+    pages.value.trim(),
+    read.checked
+  );
 });
 
-closeModalBtn.forEach((button) => {
-  button.addEventListener("click", () => {
-    const modal = button.closest(".modal");
-    closeModal(modal);
-  });
+openModalBtn.addEventListener("click", () => {
+  openModal(modal);
+});
+
+closeModalBtn.addEventListener("click", () => {
+  const modal = document.querySelector(".modal.active");
+  closeModal(modal);
 });
 
 overlay.addEventListener("click", () => {
@@ -34,16 +46,19 @@ function closeModal(modal) {
   modal.classList.remove("active");
   overlay.classList.remove("active");
 }
-// function Book(title, author, pages, read) {
-//   this.title = title;
-//   this.author = author;
-//   this.pages = pages;
-//   this.read = read;
-//   this.info = function () {
-//     return this.title + this.author + this.pages + this.read;
-//   };
-// }
+function Book(title, author, pages, read) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+  this.info = function () {
+    return this.title + this.author + this.pages + this.read;
+  };
+}
 
-// function addBookToLibrary() {}
+function addBookToLibrary(title, author, pages, read) {
+  const newBook = new Book(title, author, pages, read);
+  myLibrary.push(newBook);
+}
 
-// const book1 = new Book("title one", "Marisa Min", 100, true);
+console.log(myLibrary);
