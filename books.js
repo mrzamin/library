@@ -15,16 +15,14 @@ openModalBtn.forEach((button) => {
 
 closeModalBtn.forEach((button) => {
   button.addEventListener("click", () => {
-    const modal = document.querySelector(button.dataset.modalTarget);
+    const modal = button.closest(".modal");
     closeModal(modal);
   });
 });
 
 overlay.addEventListener("click", () => {
-  const modals = document.querySelectorAll(".modal.active");
-  modals.forEach((modal) => {
-    closeModal(modal);
-  });
+  const modal = document.querySelector(".modal.active");
+  closeModal(modal);
 });
 
 function openModal(modal) {
