@@ -78,10 +78,11 @@ function updateLibrary(newBook, index) {
 
   const currentBookNumber = document.createElement("p");
   const currentBookTitle = document.createElement("p");
+  currentBookTitle.classList.add("title");
   const currentBookAuthor = document.createElement("p");
   const currentBookPages = document.createElement("p");
 
-  currentBookNumber.textContent = `Book #: ${index + 1}`;
+  currentBookNumber.textContent = `Book: ${index + 1}`;
   currentBookTitle.textContent = `Title: ${newBook.title}`;
   currentBookAuthor.textContent = `Author: ${newBook.author}`;
   currentBookPages.textContent = `Pages: ${newBook.pages}`;
@@ -91,6 +92,6 @@ function updateLibrary(newBook, index) {
   newCard.appendChild(currentBookAuthor);
   newCard.appendChild(currentBookPages);
 
-  content.appendChild(newCard);
+  content.insertBefore(newCard, content.children[0]);
 }
 console.log(myLibrary);
