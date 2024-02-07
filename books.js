@@ -1,23 +1,51 @@
 //Grab DOM elements.//
 
-const addBtn = document.getElementsByClassName("add");
-const closeModalBtn = document.getElementsByClassName("close");
-const overlay = document.getElementsByClassName("overlay");
+const openModalBtn = document.querySelectorAll("[data-modal-target]");
+const closeModalBtn = document.querySelectorAll("[data-close-button]");
+const overlay = document.getElementById("overlay");
 
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.info = function () {
-    return this.title + this.author + this.pages + this.read;
-  };
+openModalBtn.forEach((button) => {
+  button.addEventListener("click", () => {
+    const modal = document.querySelector(button.dataset.modalTarget);
+    openModal(modal);
+  });
+});
+
+closeModalBtn.forEach((button) => {
+  button.addEventListener("click", () => {
+    const modal = document.querySelector(button.dataset.modalTarget);
+    closeModal(modal);
+  });
+});
+
+overlay.addEventListener("click", () => {
+  const modals = document.querySelectorAll(".modal.active");
+  modals.forEach((modal) => {
+    closeModal(modal);
+  });
+});
+
+function openModal(modal) {
+  modal.classList.add("active");
+  overlay.classList.add("active");
 }
 
-function addBookToLibrary() {}
+function closeModal(modal) {
+  modal.classList.remove("active");
+  overlay.classList.remove("active");
+}
+// function Book(title, author, pages, read) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.read = read;
+//   this.info = function () {
+//     return this.title + this.author + this.pages + this.read;
+//   };
+// }
 
-const book1 = new Book("title one", "Marisa Min", 100, true);
+// function addBookToLibrary() {}
 
-console.log(book1.info());
+// const book1 = new Book("title one", "Marisa Min", 100, true);

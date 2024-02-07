@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="books.js"></script>
+    <script src="books.js" defer></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <button class="add">New Book</button>
+    <button class="add" data-modal-target="#modal">New Book</button>
 
-    <div class="modal">
-      <button class="close-button">&times</button>
+    <div class="modal" id="modal">
+      <button class="close-button" data-close-button>&times</button>
       <div class="form-container">
         <div class="modal-header">New Book Entry</div>
         <form action="#">
@@ -26,6 +26,6 @@
       </div>
       <button class="close" type="submit">Submit</button>
     </div>
-    <div class="overlay"></div>
+    <div id="overlay"></div>
   </body>
 </html>

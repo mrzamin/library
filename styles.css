@@ -47,7 +47,7 @@ form {
   align-self: end;
 }
 
-.overlay {
+#overlay {
   position: fixed;
   transition: 200ms ease-in-out;
   opacity: 0;
@@ -59,7 +59,7 @@ form {
   pointer-events: none;
 }
 
-.overlay.active {
+#overlay.active {
   opacity: 1;
   pointer-events: all;
 }
