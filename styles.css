@@ -2,6 +2,8 @@
 
 :root {
   font-family: "Kiwi Maru", serif;
+
+  --blue-color: #0284c7;
 }
 
 * {
@@ -90,14 +92,47 @@ input[type="text"] {
 }
 
 .close {
-  cursor: pointer;
   border: none;
   background: none;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: bold;
   align-self: end;
+  width: 10%;
 }
 
+.remove,
+.submit {
+  border: none;
+  border-radius: 10px;
+  padding: 5px 0px;
+  font-family: "Kiwi Maru", serif;
+  font-weight: 800;
+  font-size: 0.7rem;
+}
+
+button:hover {
+  background-color: var(--blue-color);
+  color: white;
+}
+
+input::placeholder {
+  font-family: "Kiwi Maru", serif;
+}
+
+input:focus,
+input:hover {
+  border: 2px solid var(--blue-color);
+  outline-color: var(--blue-color);
+}
+
+input {
+  padding: 0.5rem;
+}
+
+form label {
+  font-size: 1rem;
+  text-align: center;
+}
 #overlay {
   position: fixed;
   transition: 200ms ease-in-out;
@@ -119,7 +154,7 @@ input[type="text"] {
   font-size: 0.8rem;
   background-color: white;
   border-radius: 5px;
-  height: 200px;
+  height: 225px;
   padding: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
     rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
@@ -127,19 +162,19 @@ input[type="text"] {
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 8px;
 }
 
 .add-card {
-  display: grid;
-  place-items: center;
+  place-content: center;
 }
 
 img[src*="plus"] {
   height: 40px;
 }
 
-.title {
+.card .title {
   font-weight: 800;
 }
 
@@ -152,5 +187,6 @@ img[src*="plus"] {
 }
 
 .footer a {
-  color: blue;
+  color: var(--blue-color);
+  font-weight: 500;
 }
