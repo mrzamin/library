@@ -5,6 +5,7 @@ const closeModalBtn = document.querySelector(".close");
 const overlay = document.getElementById("overlay");
 const submitBtn = document.querySelector(".submit");
 const content = document.querySelector(".content");
+const form = document.querySelector("#form");
 
 const title = document.querySelector(".title");
 const author = document.querySelector(".author");
@@ -16,19 +17,75 @@ const myLibrary = [];
 addBookToLibrary("The Power of One More", "Ed Mylett", "1000", false);
 addBookToLibrary("Coders", "Clive Thompson", "2000", true);
 
-submitBtn.addEventListener("click", (e) => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
+  validateTitle(title.value);
+  validateAuthor(author.value);
+  validatePages(pages.value);
 
-  addBookToLibrary(
-    title.value.trim(),
-    author.value.trim(),
-    pages.value.trim(),
-    read.checked
-  );
+  if (title.value != "" && author.value != "" && pages.value != "") {
+    addBookToLibrary(
+      title.value.trim(),
+      author.value.trim(),
+      pages.value.trim(),
+      read.checked
+    );
 
-  const modal = document.querySelector(".modal.active");
-  closeModal(modal);
+    const modal = document.querySelector(".modal.active");
+    closeModal(modal);
+  }
 });
+
+// submitBtn.addEventListener("click", (e) => {
+//   addBookToLibrary(
+//     title.value.trim(),
+//     author.value.trim(),
+//     pages.value.trim(),
+//     read.checked
+//   );
+
+//   const modal = document.querySelector(".modal.active");
+//   closeModal(modal);
+// });
+
+title.addEventListener("input", function (e) {
+  validateTitle(title.value);
+});
+
+function validateTitle(title) {
+  const titleError = document.querySelector(".title-error");
+  if (title === "") {
+    titleError.textContent = "Book title required!";
+  } else {
+    titleError.textContent = "";
+  }
+}
+
+author.addEventListener("input", function (e) {
+  validateAuthor(author.value);
+});
+
+function validateAuthor(author) {
+  const authorError = document.querySelector(".author-error");
+  if (author === "") {
+    authorError.textContent = "Author name required!";
+  } else {
+    authorError.textContent = "";
+  }
+}
+
+pages.addEventListener("input", function (e) {
+  validatePages(pages.value);
+});
+
+function validatePages(pages) {
+  const pagesError = document.querySelector(".pages-error");
+  if (pages === "") {
+    pagesError.textContent = "Number of pages required!";
+  } else {
+    pagesError.textContent = "";
+  }
+}
 
 openModalBtn.addEventListener("click", () => {
   openModal(modal);
