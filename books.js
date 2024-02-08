@@ -13,8 +13,8 @@ const read = document.querySelector("#read");
 
 const myLibrary = [];
 
-addBookToLibrary("The Power of One More", "Ed Mylett", "1000", false);
-addBookToLibrary("Coders", "Clive Thompson", "2000", true);
+// addBookToLibrary("The Power of One More", "Ed Mylett", "1000", false);
+// addBookToLibrary("Coders", "Clive Thompson", "2000", true);
 
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -26,7 +26,7 @@ submitBtn.addEventListener("click", (e) => {
     read.checked
   );
 
-  console.log(read.checked);
+  updateLibrary(myLibrary[myLibrary.length - 1], myLibrary.length - 1);
 
   const modal = document.querySelector(".modal.active");
   closeModal(modal);
@@ -46,6 +46,21 @@ overlay.addEventListener("click", () => {
   const modal = document.querySelector(".modal.active");
 
   closeModal(modal);
+});
+
+content.addEventListener("click", (e) => {
+  const isRemoveBtn = e.target.classList.contains("remove");
+  if (isRemoveBtn) {
+    const parentCard = document.querySelector(
+      `div[data-index="${e.target.dataset.index}"]`
+    );
+    parentCard.remove();
+    myLibrary.splice(e.target.dataset.index, 1);
+    content.replaceChildren(content.lastElementChild);
+    for (let i = 0; i < myLibrary.length; i++) {
+      updateLibrary(myLibrary[i], i);
+    }
+  }
 });
 
 function openModal(modal) {
@@ -70,33 +85,42 @@ function Book(title, author, pages, read) {
 function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
-  updateLibrary(myLibrary[myLibrary.length - 1], myLibrary.length - 1);
 }
 
 function updateLibrary(newBook, index) {
   const newCard = document.createElement("div");
   newCard.classList.add("card");
   newCard.classList.add("bookCard");
+  newCard.dataset.index = index;
 
   const currentBookNumber = document.createElement("p");
+
   const currentBookTitle = document.createElement("p");
   currentBookTitle.classList.add("title");
+
   const currentBookAuthor = document.createElement("p");
+
   const currentBookPages = document.createElement("p");
+
   const read = document.createElement("label");
+
   const toggle = document.createElement("input");
   toggle.setAttribute("type", "checkbox");
-
   if (newBook.read == true) {
     toggle.setAttribute("checked", "checked");
   }
-
   toggle.classList.add("toggle");
+
+  const remove = document.createElement("button");
+  remove.classList.add("remove");
+  remove.dataset.index = index;
+
   currentBookNumber.textContent = `Book: ${index + 1}`;
   currentBookTitle.textContent = `Title: ${newBook.title}`;
   currentBookAuthor.textContent = `Author: ${newBook.author}`;
   currentBookPages.textContent = `Pages: ${newBook.pages}`;
   read.textContent = "Red:  ";
+  remove.textContent = "Remove";
 
   newCard.appendChild(currentBookNumber);
   newCard.appendChild(currentBookTitle);
@@ -104,7 +128,9 @@ function updateLibrary(newBook, index) {
   newCard.appendChild(currentBookPages);
   newCard.appendChild(read);
   read.appendChild(toggle);
+  newCard.appendChild(remove);
 
   content.insertBefore(newCard, content.children[0]);
 }
+
 console.log(myLibrary);
