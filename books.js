@@ -13,8 +13,8 @@ const read = document.querySelector("#read");
 
 const myLibrary = [];
 
-// addBookToLibrary("The Power of One More", "Ed Mylett", "1000", false);
-// addBookToLibrary("Coders", "Clive Thompson", "2000", true);
+addBookToLibrary("The Power of One More", "Ed Mylett", "1000", false);
+addBookToLibrary("Coders", "Clive Thompson", "2000", true);
 
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -25,8 +25,6 @@ submitBtn.addEventListener("click", (e) => {
     pages.value.trim(),
     read.checked
   );
-
-  updateLibrary(myLibrary[myLibrary.length - 1], myLibrary.length - 1);
 
   const modal = document.querySelector(".modal.active");
   closeModal(modal);
@@ -85,6 +83,7 @@ function Book(title, author, pages, read) {
 function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
+  updateLibrary(myLibrary[myLibrary.length - 1], myLibrary.length - 1);
 }
 
 function updateLibrary(newBook, index) {
