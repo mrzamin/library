@@ -9,7 +9,7 @@ const content = document.querySelector(".content");
 const title = document.querySelector(".title");
 const author = document.querySelector(".author");
 const pages = document.querySelector(".pages");
-const read = document.querySelector(".read");
+const read = document.querySelector("#read");
 
 const myLibrary = [];
 
@@ -25,6 +25,8 @@ submitBtn.addEventListener("click", (e) => {
     pages.value.trim(),
     read.checked
   );
+
+  console.log(read.checked);
 
   const modal = document.querySelector(".modal.active");
   closeModal(modal);
@@ -85,6 +87,11 @@ function updateLibrary(newBook, index) {
   const toggle = document.createElement("input");
   toggle.setAttribute("type", "checkbox");
 
+  if (newBook.read == true) {
+    toggle.setAttribute("checked", "checked");
+  }
+
+  toggle.classList.add("toggle");
   currentBookNumber.textContent = `Book: ${index + 1}`;
   currentBookTitle.textContent = `Title: ${newBook.title}`;
   currentBookAuthor.textContent = `Author: ${newBook.author}`;
