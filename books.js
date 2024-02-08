@@ -81,16 +81,22 @@ function updateLibrary(newBook, index) {
   currentBookTitle.classList.add("title");
   const currentBookAuthor = document.createElement("p");
   const currentBookPages = document.createElement("p");
+  const read = document.createElement("label");
+  const toggle = document.createElement("input");
+  toggle.setAttribute("type", "checkbox");
 
   currentBookNumber.textContent = `Book: ${index + 1}`;
   currentBookTitle.textContent = `Title: ${newBook.title}`;
   currentBookAuthor.textContent = `Author: ${newBook.author}`;
   currentBookPages.textContent = `Pages: ${newBook.pages}`;
+  read.textContent = "Red:  ";
 
   newCard.appendChild(currentBookNumber);
   newCard.appendChild(currentBookTitle);
   newCard.appendChild(currentBookAuthor);
   newCard.appendChild(currentBookPages);
+  newCard.appendChild(read);
+  read.appendChild(toggle);
 
   content.insertBefore(newCard, content.children[0]);
 }
