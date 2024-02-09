@@ -1,34 +1,43 @@
-//Grab DOM elements.//
+//Grab DOM elements for buttons, overlay, library, form, and input fields.
 
 const openModalBtn = document.querySelector(".add");
 const closeModalBtn = document.querySelector(".close");
-const overlay = document.getElementById("overlay");
 const submitBtn = document.querySelector(".submit");
+const overlay = document.querySelector("#overlay");
 const content = document.querySelector(".content");
 const form = document.querySelector("#form");
+const titleInput = document.querySelector(".title");
+const authorInput = document.querySelector(".author");
+const pagesInput = document.querySelector(".pages");
+const readInput = document.querySelector("#read");
 
-const title = document.querySelector(".title");
-const author = document.querySelector(".author");
-const pages = document.querySelector(".pages");
-const read = document.querySelector("#read");
+//Create library array
 
 const myLibrary = [];
+
+//Add placeholder books to library
 
 addBookToLibrary("The Power of One More", "Ed Mylett", "1000", false);
 addBookToLibrary("Coders", "Clive Thompson", "2000", true);
 
+//Listen for form submit and validate form fields
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  validateTitle(title.value);
-  validateAuthor(author.value);
-  validatePages(pages.value);
+  validateTitle(titleInput.value);
+  validateAuthor(authorInput.value);
+  validatePages(pagesInput.value);
 
-  if (title.value != "" && author.value != "" && pages.value != "") {
+  if (
+    titleInput.value != "" &&
+    authorInput.value != "" &&
+    pagesInput.value != ""
+  ) {
     addBookToLibrary(
-      title.value.trim(),
-      author.value.trim(),
-      pages.value.trim(),
-      read.checked
+      titleInput.value.trim(),
+      authorInput.value.trim(),
+      pagesInput.value.trim(),
+      readInput.checked
     );
 
     const modal = document.querySelector(".modal.active");
@@ -36,20 +45,10 @@ form.addEventListener("submit", (e) => {
   }
 });
 
-// submitBtn.addEventListener("click", (e) => {
-//   addBookToLibrary(
-//     title.value.trim(),
-//     author.value.trim(),
-//     pages.value.trim(),
-//     read.checked
-//   );
+//Input event listeners and corresponding validation functions
 
-//   const modal = document.querySelector(".modal.active");
-//   closeModal(modal);
-// });
-
-title.addEventListener("input", function (e) {
-  validateTitle(title.value);
+titleInput.addEventListener("input", function (e) {
+  validateTitle(titleInput.value);
 });
 
 function validateTitle(title) {
@@ -61,8 +60,8 @@ function validateTitle(title) {
   }
 }
 
-author.addEventListener("input", function (e) {
-  validateAuthor(author.value);
+authorInput.addEventListener("input", function (e) {
+  validateAuthor(authorInput.value);
 });
 
 function validateAuthor(author) {
@@ -74,8 +73,8 @@ function validateAuthor(author) {
   }
 }
 
-pages.addEventListener("input", function (e) {
-  validatePages(pages.value);
+pagesInput.addEventListener("input", function (e) {
+  validatePages(pagesInput.value);
 });
 
 function validatePages(pages) {
@@ -87,35 +86,15 @@ function validatePages(pages) {
   }
 }
 
+// Modal event listeners and open/close functions
+
 openModalBtn.addEventListener("click", () => {
   openModal(modal);
 });
 
 closeModalBtn.addEventListener("click", () => {
   const modal = document.querySelector(".modal.active");
-
   closeModal(modal);
-});
-
-overlay.addEventListener("click", () => {
-  const modal = document.querySelector(".modal.active");
-
-  closeModal(modal);
-});
-
-content.addEventListener("click", (e) => {
-  const isRemoveBtn = e.target.classList.contains("remove");
-  if (isRemoveBtn) {
-    const parentCard = document.querySelector(
-      `div[data-index="${e.target.dataset.index}"]`
-    );
-    parentCard.remove();
-    myLibrary.splice(e.target.dataset.index, 1);
-    content.replaceChildren(content.lastElementChild);
-    for (let i = 0; i < myLibrary.length; i++) {
-      updateLibrary(myLibrary[i], i);
-    }
-  }
 });
 
 function openModal(modal) {
@@ -127,11 +106,20 @@ function closeModal(modal) {
   modal.classList.remove("active");
   overlay.classList.remove("active");
 
-  title.value = "";
-  author.value = "";
-  pages.value = "";
-  read.checked = false;
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  readInput.checked = false;
 }
+
+//Overlay event listener
+
+overlay.addEventListener("click", () => {
+  const modal = document.querySelector(".modal.active");
+  closeModal(modal);
+});
+
+//Book object constructor
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -143,6 +131,8 @@ function Book(title, author, pages, read) {
   };
 }
 
+//Library functionality
+
 function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
@@ -150,34 +140,48 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 function updateLibrary(newBook, index) {
-  const newCard = document.createElement("div");
+  const newCard = document.createElement("div"); //New card element.
   newCard.classList.add("card");
   newCard.dataset.index = index;
-
-  const currentBookNumber = document.createElement("p");
-
-  const currentBookTitle = document.createElement("p");
+  const currentBookNumber = document.createElement("p"); //Book number element.
+  const currentBookTitle = document.createElement("p"); //Book title element.
   currentBookTitle.classList.add("title");
   currentBookTitle.setAttribute("title", `${newBook.title}`);
-
-  const currentBookAuthor = document.createElement("p");
+  const currentBookAuthor = document.createElement("p"); //Book author element.
   currentBookAuthor.setAttribute("title", `${newBook.author}`);
+  const currentBookPages = document.createElement("p"); //Book pages element.
 
-  const currentBookPages = document.createElement("p");
-
-  const read = document.createElement("label");
-
+  const read = document.createElement("label"); //Read label + checkbox elements.
   const toggle = document.createElement("input");
   toggle.setAttribute("type", "checkbox");
   if (newBook.read == true) {
     toggle.setAttribute("checked", "checked");
   }
-  toggle.classList.add("toggle");
 
-  const remove = document.createElement("button");
+  const remove = document.createElement("button"); //Remove book button.
   remove.classList.add("remove");
   remove.dataset.index = index;
 
+  /* Remove book event listener:
+  1. identifies parent card
+  2. removes parent card from section
+  3. removes book from Library array
+  4. Loops over mutated array and updates Library
+  */
+
+  remove.addEventListener("click", (e) => {
+    const parentCard = document.querySelector(
+      `div[data-index="${e.target.dataset.index}"]`
+    );
+    parentCard.remove();
+    myLibrary.splice(e.target.dataset.index, 1);
+    content.replaceChildren(content.lastElementChild);
+    for (let i = 0; i < myLibrary.length; i++) {
+      updateLibrary(myLibrary[i], i);
+    }
+  });
+
+  /* Insert text into card. */
   currentBookNumber.textContent = `Book: ${index + 1}`;
   currentBookTitle.textContent = `Title: ${newBook.title}`;
   currentBookAuthor.textContent = `Author: ${newBook.author}`;
@@ -185,6 +189,7 @@ function updateLibrary(newBook, index) {
   read.textContent = "Read:  ";
   remove.textContent = "Remove";
 
+  /* Append elements to card. */
   newCard.appendChild(currentBookNumber);
   newCard.appendChild(currentBookTitle);
   newCard.appendChild(currentBookAuthor);
@@ -193,5 +198,6 @@ function updateLibrary(newBook, index) {
   read.appendChild(toggle);
   newCard.appendChild(remove);
 
+  /* Insert card at beginning of grid. */
   content.insertBefore(newCard, content.children[0]);
 }

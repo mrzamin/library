@@ -26,6 +26,7 @@
   align-items: center;
   padding-left: 1rem;
   gap: 12px;
+  color: var(--blue-color);
 }
 
 .header p {
@@ -168,6 +169,7 @@ img[src*="plus"] {
 
 .card .title {
   font-weight: 800;
+  color: var(--blue-color);
 }
 
 /* Button styles. */
