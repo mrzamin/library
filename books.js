@@ -126,7 +126,13 @@ function openModal(modal) {
 function closeModal(modal) {
   modal.classList.remove("active");
   overlay.classList.remove("active");
+
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  read.checked = false;
 }
+
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
@@ -146,15 +152,16 @@ function addBookToLibrary(title, author, pages, read) {
 function updateLibrary(newBook, index) {
   const newCard = document.createElement("div");
   newCard.classList.add("card");
-  newCard.classList.add("bookCard");
   newCard.dataset.index = index;
 
   const currentBookNumber = document.createElement("p");
 
   const currentBookTitle = document.createElement("p");
   currentBookTitle.classList.add("title");
+  currentBookTitle.setAttribute("title", `${newBook.title}`);
 
   const currentBookAuthor = document.createElement("p");
+  currentBookAuthor.setAttribute("title", `${newBook.author}`);
 
   const currentBookPages = document.createElement("p");
 
@@ -175,7 +182,7 @@ function updateLibrary(newBook, index) {
   currentBookTitle.textContent = `Title: ${newBook.title}`;
   currentBookAuthor.textContent = `Author: ${newBook.author}`;
   currentBookPages.textContent = `Pages: ${newBook.pages}`;
-  read.textContent = "Red:  ";
+  read.textContent = "Read:  ";
   remove.textContent = "Remove";
 
   newCard.appendChild(currentBookNumber);
@@ -188,5 +195,3 @@ function updateLibrary(newBook, index) {
 
   content.insertBefore(newCard, content.children[0]);
 }
-
-console.log(myLibrary);
